@@ -5,4 +5,12 @@ import time
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
 
+driver.get('https://mail.mmip.ru')
+
+url = driver.current_url
+
+print(url)
+
+assert url == 'https://mail.mmip.ru/webmail/', 'Error'
+
 time.sleep(5)

@@ -340,8 +340,8 @@ def authenticate():
         'salt': f'{salt}',
         'signature': f'{signature}',
         'expires': f'{expires}',
-        'number': f'{number}',
-        'took': f'{took}'
+        #'number': f'{number}',
+        #'took': f'{took}'
 
     }
 

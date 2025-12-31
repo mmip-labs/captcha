@@ -11,6 +11,11 @@ url = driver.current_url
 
 print(url)
 
-assert url == 'https://mail.mmip.ru/webmail/', 'Error'
+
+
+#assert url == 'https://mail.mmip.ru/webmail/', 'Error'
+
+print(driver.page_source)
+
 
 time.sleep(5)

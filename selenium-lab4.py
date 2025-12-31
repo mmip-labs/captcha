@@ -7,7 +7,7 @@ driver = webdriver.Chrome(service=service)
 
 driver.get('https://mail.mmip.ru')
 
-driver.find_element("id", "rcmloginsubmit")
+driver.find_element("id", "rcmloginuser").send_keys('Hello')
 
 driver.find_element("id", "rcmloginsubmit").click()
 

@@ -1,9 +1,13 @@
 import requests
 import random
 import re
-from config import male_names, female_names
+from config import male_names, female_names, headers, my_cookies
 import base64
 import time
+import requests
+import re
+import base64
+import json
 
 def get_cookies_from_cart():
     """
@@ -287,4 +291,113 @@ def get_token():
             if match:
                 token_str = match.group(1)
                 return token_str
+
+def authenticate():
+    url = 'https://ylilit.ru/wp-admin/admin-ajax.php'
+
+    tokens = get_tokens()
+
+    action = 'shield_action'
+    ex = 'capture_not_bot'
+    exnonce = tokens['exnonce']
+
+    not_bot_cooke = get_cookies_from_cart()
+
+    my_cookies['icwp-wpsf-notbot'] = f'notbotZaltchaZexp-{not_bot_cooke}'
+
+    data = {
+        'action': f'{action}',
+        'ex': f'{ex}',
+        'exnonce': f'{exnonce}'
+    }
+
+    responce = requests.post(url, headers=headers, cookies=my_cookies, data=data, timeout=20)
+
+    json_data = responce.json()
+
+
+    action =  json_data['data']['altcha_data']['action']
+    ex =  json_data['data']['altcha_data']['ex']
+    exnonce = json_data['data']['altcha_data']['exnonce']
+    algorithm = json_data['data']['altcha_data']['algorithm']
+    challenge = json_data['data']['altcha_data']['challenge']
+    maxnumber = json_data['data']['altcha_data']['maxnumber']
+    salt = json_data['data']['altcha_data']['salt']
+    signature = json_data['data']['altcha_data']['signature']
+    expires = json_data['data']['altcha_data']['expires']
+    #number = json_data['data']['altcha_data']['number']
+    #took = json_data['data']['altcha_data']['took']
+    number = 13664
+    took = 219
+
+    data2 = {
+        'action': f'{action}',
+        'ex': f'{ex}',
+        'exnonce': f'{exnonce}',
+        'algorithm': f'{algorithm}',
+        'challenge': f'{challenge}',
+        'maxnumber': f'{maxnumber}',
+        'salt': f'{salt}',
+        'signature': f'{signature}',
+        'expires': f'{expires}'
+        # 'number': f'{number}',
+        # 'took': f'{took}'
+
+    }
+
+    print(data2)
+
+    responce2 = requests.post(url, headers=headers, cookies=my_cookies, data=data2, timeout=20)
+
+    json_data2 = responce.json()
+
+    print(json_data2)
+
+def get_tokens():
+
+    # 1. Define the URL
+    url = "https://ylilit.ru"
+
+    pattern_lengh = 900
+
+    tokens = {}
+
+    # 2. Send an HTTP GET request to the URL
+    response = requests.get(url)
+
+    # 3. Check if the request was successful (optional but recommended)
+    if response.status_code == 200:
+        # 4. Access the page content as a string (decoded Unicode)
+        page_content_text = response.text
+
+        for i in page_content_text.split(" "):
+            pattern = r'src="data:text/javascript;base64,([^"]+)"></script>'
+            match = re.search(pattern, i)
+            if match:
+                base64_str = match.group(1)
+                if len(base64_str) >= pattern_lengh:
+
+                    decoded_bytes = base64.b64decode(base64_str)
+                    decoded_text = decoded_bytes.decode('utf-8')
+
+                    decoded_text2 = decoded_text.replace('/* <![CDATA[ */','')
+                    decoded_text2 = decoded_text2.replace('//# sourceURL=icwp-wpsf-notbot-js-extra','')
+                    decoded_text2 = decoded_text2.replace('/* ]]> */','')
+                    decoded_text2 = decoded_text2.strip()
+
+
+                    pattern2 = r'var shield_vars_notbot = (.*);'
+                    match2 = re.search(pattern2, decoded_text2)
+                    if match2:
+                        json_data = match2.group(1)
+                        data_object = json.loads(json_data)
+                        exnonce = data_object['comps']['notbot']['ajax']['not_bot']['exnonce']
+                        wpnonce = data_object['comps']['notbot']['ajax']['not_bot']['_wpnonce']
+                        rest_url = data_object['comps']['notbot']['ajax']['not_bot']['_rest_url']
+
+                        tokens['exnonce'] = exnonce
+                        tokens['wpnonce'] = wpnonce
+                        tokens['rest_url'] = rest_url
+
+                        return tokens
 

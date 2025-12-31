@@ -2,13 +2,14 @@ from fastapi import FastAPI, Form
 from typing import Optional
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
+import base64
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import json
 
 from main import run_task
-from functions import get_wp_nonce
+from functions import get_wp_nonce, get_tokens, authenticate
 
 import requests
 import json
@@ -167,6 +168,8 @@ async def login(
     Эндпоинт для обработки POST-запроса с данными формы.
     Возвращает полученные значения.
     """
+
+    authenticate()
 
     run_task(get_wp_nonce(),g_recaptcha_response)
 

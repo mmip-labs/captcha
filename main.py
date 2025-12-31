@@ -18,7 +18,7 @@ def run_task(wp_nonce_code, token):
     # Get random name
     name = '123'
     # Get random phone number
-    phone = '=79111111111'
+    phone = '+7 (962) 211-79-79'
     # Get random email
     email = 'email@mail.com'
     # Get random address

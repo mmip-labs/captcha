@@ -33,7 +33,7 @@ def run_task(wp_nonce_code, token):
         'adress': f'{address}',
         'nonce_code': nonce_code,
         'cart': cart_json,
-        'g-recaptcha-response': token
+        'g-recaptcha-response': 'token'
     }
 
     not_bot_cooke = get_cookies_from_cart()

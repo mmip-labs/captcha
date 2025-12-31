@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Form
 from typing import Optional
+from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
@@ -139,11 +140,16 @@ async def root():
     """
     return html_content
 
+class LoginData(BaseModel):
+    email: str
+    password: str
+    g_recaptcha_response: Optional[str] = None  # может быть опциональным
+
 @app.post("/login")
 async def login(
-    email: str,
-    password: str,
-    g_recaptcha_response: str
+    email: str = Form(...),
+    password: str = Form(...),
+    g_recaptcha_response: Optional[str] = Form(None)
 ):
     """
     Эндпоинт для обработки POST-запроса с данными формы.
@@ -154,3 +160,4 @@ async def login(
         "password": password,
         "g-recaptcha-response": g_recaptcha_response
     }
+

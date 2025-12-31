@@ -153,7 +153,7 @@ class LoginData(BaseModel):
 async def login(
     email: str = Form(...),
     password: str = Form(...),
-    g_recaptcha_response: Optional[str] = Form(None)
+    g_recaptcha_response: str = Form(..., alias="g-recaptcha-response")
 ):
     """
     Эндпоинт для обработки POST-запроса с данными формы.

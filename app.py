@@ -125,7 +125,7 @@ async def root():
                 <input type="password" id="password" name="password" placeholder="Придумайте пароль" required minlength="6">
             </div>
 
-            <button class="g-recaptcha" data-sitekey="6LfGRTwsAAAAAPGqE5u8hW-DnWPkp0wYzGwy2llu" data-callback='onSubmit' data-action='submit'>Submit</button>
+            <button class="g-recaptcha" data-sitekey="6Lc_UTksAAAAACENYofamCPxqUn1sMUODwXZOUwQ" data-callback='onSubmit' data-action='submit'>Submit</button>
 
         </form>
 

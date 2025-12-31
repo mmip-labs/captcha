@@ -339,9 +339,9 @@ def authenticate():
         'maxnumber': f'{maxnumber}',
         'salt': f'{salt}',
         'signature': f'{signature}',
-        'expires': f'{expires}'
-        # 'number': f'{number}',
-        # 'took': f'{took}'
+        'expires': f'{expires}',
+        'number': f'{number}',
+        'took': f'{took}'
 
     }
 

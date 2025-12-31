@@ -346,12 +346,14 @@ def authenticate():
     }
 
     print(data2)
+    print()
 
     responce2 = requests.post(url, headers=headers, cookies=my_cookies, data=data2, timeout=20)
 
     json_data2 = responce.json()
 
     print(json_data2)
+    print()
 
 def get_tokens():
 

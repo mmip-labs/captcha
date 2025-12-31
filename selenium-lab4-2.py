@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 import time
 from selenium.webdriver.common.by import By
 import random
-from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address
+from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu
 
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
@@ -13,13 +13,22 @@ driver.get('https://ylilit.ru/cart')
 
 timers = [0.4, 0.5, 0.6, 0.7]
 
-#driver.execute_script("window.cart= '{}';")
+dishes = make_menu()
+
+dish_id = random.choice(list(dishes.keys()))
+dish_name = dishes[dish_id][0]
+dish_value = dishes[dish_id][1]
+dish_img = dishes[dish_id][2]
+dish_price = dishes[dish_id][3]
 
 
 
 driver.execute_script("window.cart['1112'] = '[]';")
 
-driver.execute_script('window.cart["1112"] = [1,"https://ylilit.ru/wp-content/uploads/2020/12/DSC_6561-scaled.jpg","2050","Шашлык из свиной шеи","1000"];')
+driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{dish_name}","{dish_price}"];')
+
+
+#driver.execute_script('window.cart["1112"] = [1,"https://ylilit.ru/wp-content/uploads/2020/12/DSC_6561-scaled.jpg","2050","Шашлык из свиной шеи","1000"];')
 
 # driver.execute_script(f"window.cart['1112'][0] = 1;")
 # driver.execute_script(f"window.cart['1112'][1] = 'https://ylilit.ru/wp-content/uploads/2020/12/DSC_6561-scaled.jpg';")
@@ -37,24 +46,31 @@ for digit in get_phone_number():
     timeout = random.choice(timers)
     time.sleep(timeout)
 
+time.sleep(random.choice([2,3,4,5]))
+
 for char in get_name():
     driver.find_element(By.ID, "name").send_keys(f'{char}')
     timeout = random.choice(timers)
     time.sleep(timeout)
+
+time.sleep(random.choice([2,3,4,5]))
 
 for email in get_email():
     driver.find_element(By.ID, "mail").send_keys(f'{email}')
     timeout = random.choice(timers)
     time.sleep(timeout)
 
+time.sleep(random.choice([2,3,4,5]))
+
 for address in get_random_yaroslavl_address():
     driver.find_element(By.ID, "adress").send_keys(f'{address}')
     time.sleep(0.5)
 
+time.sleep(random.choice([2,3,4,5]))
 
 driver.find_element(By.CLASS_NAME, "sendCart").click()
 
 #driver.find_element("id", "rcmloginsubmit").click()
 
-time.sleep(10)
+time.sleep(40)
 

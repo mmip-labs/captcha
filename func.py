@@ -1,6 +1,6 @@
 import random
 from config import male_names, female_names
-
+import re
 def get_phone_number():
     # Генерируем случайные числа для телефона
     operator_code = random.choice([910, 911, 915, 980, 989,  920, 922, 923, 924, 925, 926,
@@ -12,7 +12,8 @@ def get_phone_number():
     part3 = random.randint(10, 99)
 
     # Формируем номер телефона
-    phone_number = f"+7 ({operator_code}) {part1}-{part2}-{part3}"
+    #phone_number = f"+7 ({operator_code}) {part1}-{part2}-{part3}"
+    phone_number = f"{operator_code}{part1}{part2}{part3}"
 
     return phone_number
 
@@ -151,3 +152,32 @@ def get_random_yaroslavl_address():
 
     # Возврат случайного адреса из списка
     return random.choice(get_random_yaroslavl_address.addresses)
+
+def make_menu():
+    menu = {}
+
+    with open('data.txt', encoding='utf8') as src:
+        for str1 in src:
+
+            if 'data-id' in str1:
+                data_id = str1.strip().split('=')[1].replace("\"", "")
+                menu[data_id] = []
+
+            if 'data-name' in str1:
+                data_name = str1.strip().split('=')[1].replace("\"", "")
+                menu[data_id].append(data_name)
+
+            if 'data-heft' in str1:
+                data_heft = str1.strip().split('=')[1].replace("\"", "")
+                menu[data_id].append(data_heft)
+
+            if 'data-img' in str1:
+                data_img = str1.strip().split('=')[1].replace("\"", "")
+                menu[data_id].append(data_img)
+
+            if 'data-price' in str1:
+                match = re.search(r'data-price="(\d+)"', str1)
+                data_price = match.group(1)
+                menu[data_id].append(data_price)
+    return menu
+

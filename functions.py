@@ -96,19 +96,19 @@ def make_menu():
         for str1 in src:
 
             if 'data-id' in str1:
-                data_id = str1.strip().split('=')[1].replace("\"","")
+                data_id = str1.strip().split('=')[1].replace("\"", "")
                 menu[data_id] = []
 
             if 'data-name' in str1:
-                data_name = str1.strip().split('=')[1].replace("\"","")
+                data_name = str1.strip().split('=')[1].replace("\"", "")
                 menu[data_id].append(data_name)
 
             if 'data-heft' in str1:
-                data_heft = str1.strip().split('=')[1].replace("\"","")
+                data_heft = str1.strip().split('=')[1].replace("\"", "")
                 menu[data_id].append(data_heft)
 
             if 'data-img' in str1:
-                data_img = str1.strip().split('=')[1].replace("\"","")
+                data_img = str1.strip().split('=')[1].replace("\"", "")
                 menu[data_id].append(data_img)
 
             if 'data-price' in str1:

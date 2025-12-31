@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 import json
 
 from main import run_task
-from functions import get_token
+from functions import get_wp_nonce
 
 import requests
 import json
@@ -168,7 +168,7 @@ async def login(
     Возвращает полученные значения.
     """
 
-    run_task(get_token(),g_recaptcha_response)
+    run_task(get_wp_nonce(),g_recaptcha_response)
 
     return {
         "email": email,

@@ -7,6 +7,14 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import json
 
+from main import run_task
+from functions import get_token
+
+import requests
+import json
+from config import headers, my_cookies, url
+from functions import get_cookies_from_cart
+
 app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
@@ -159,9 +167,13 @@ async def login(
     Эндпоинт для обработки POST-запроса с данными формы.
     Возвращает полученные значения.
     """
+
+    run_task(get_token(),g_recaptcha_response)
+
     return {
         "email": email,
         "password": password,
         "g-recaptcha-response": g_recaptcha_response
     }
+
 

@@ -143,7 +143,7 @@ async def root():
 async def login(
     email: str,
     password: str,
-    g_recaptcha_response: Optional[str] = Form(None)
+    g_recaptcha_response: str
 ):
     """
     Эндпоинт для обработки POST-запроса с данными формы.

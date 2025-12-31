@@ -2,6 +2,8 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import time
+from selenium.webdriver.common.by import By
+
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
 
@@ -24,9 +26,21 @@ driver.execute_script('window.cart["1112"] = [1,"https://ylilit.ru/wp-content/up
 updated_value = driver.execute_script("return window.cart;")
 print(f"The updated variable value is: {updated_value}")
 
+driver.find_element(By.ID, "tel").send_keys('+7 (111) 111-11-11')
+time.sleep(3)
 
+driver.find_element(By.ID, "name").send_keys('Just name')
+time.sleep(4)
+
+driver.find_element(By.ID, "mail").send_keys('elon_mask@gmail.com')
+time.sleep(3)
+
+driver.find_element(By.ID, "address").send_keys('Los Angeles, CA')
+time.sleep(5)
+
+driver.find_element(By.CLASS_NAME, "sendCart").click()
 
 #driver.find_element("id", "rcmloginsubmit").click()
 
-time.sleep(50)
+time.sleep(20)
 

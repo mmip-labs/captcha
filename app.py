@@ -3,6 +3,10 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+import json
+
 app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
@@ -126,7 +130,7 @@ async def root():
                 <input type="password" id="password" name="password" placeholder="Придумайте пароль" required minlength="6">
             </div>
 
-            <button class="g-recaptcha" data-sitekey="6Lc_UTksAAAAACENYofamCPxqUn1sMUODwXZOUwQ" data-callback='onSubmit' data-action='submit'>Submit</button>
+            <button class="g-recaptcha" name="g_recaptcha_response" data-sitekey="6Lc_UTksAAAAACENYofamCPxqUn1sMUODwXZOUwQ" data-callback='onSubmit' data-action='submit'>Submit</button>
 
         </form>
 

@@ -32,7 +32,7 @@ chrome_options.add_experimental_option('useAutomationExtension', False)
 
 chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
-chrome_options.add_argument("--headless=new")
+#chrome_options.add_argument("--headless=new")
 
 
 service = Service(executable_path=ChromeDriverManager().install())

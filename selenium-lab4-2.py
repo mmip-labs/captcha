@@ -23,14 +23,18 @@ chrome_options = webdriver.ChromeOptions()
 # chrome_options.add_argument(f'--lang={language}')
 # chrome_options.add_argument(f'--accept-lang={language}')
 
+widths = [1366, 1440, 1536]
+heights = [768, 900, 960]
+
+chrome_options.add_argument(f"--window-size={random.choice(widths)},{random.choice(heights)}")
+
 # Disable Features That Might Expose Automation
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
-
-chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
 #chrome_options.add_argument("--headless=new")
 
@@ -38,10 +42,6 @@ chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-# Set random screen size
-widths = [1366, 1440, 1536]
-heights = [768, 900, 960]
-driver.set_window_size(random.choice(widths), random.choice(heights))
 
 # Set time zone
 # driver.execute_cdp_cmd(

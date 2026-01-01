@@ -1,9 +1,11 @@
 import random
 from config import male_names, female_names
 import re
+
+
 def get_phone_number():
     # Генерируем случайные числа для телефона
-    operator_code = random.choice([910, 911, 915, 980, 989,  920, 922, 923, 924, 925, 926,
+    operator_code = random.choice([910, 911, 915, 980, 989, 920, 922, 923, 924, 925, 926,
                                    927, 928, 929, 930, 939, 999, 903, 905, 906, 909, 960,
                                    961, 962, 963, 967, 900, 901, 902, 904, 908, 950, 953,
                                    977, 995, 996])  # Пример операторских кодов
@@ -12,10 +14,11 @@ def get_phone_number():
     part3 = random.randint(10, 99)
 
     # Формируем номер телефона
-    #phone_number = f"+7 ({operator_code}) {part1}-{part2}-{part3}"
+    # phone_number = f"+7 ({operator_code}) {part1}-{part2}-{part3}"
     phone_number = f"{operator_code}{part1}{part2}{part3}"
 
     return phone_number
+
 
 def get_name():
     """
@@ -24,6 +27,7 @@ def get_name():
     all_names = male_names + female_names
 
     return random.choice(all_names)
+
 
 def get_email():
     """
@@ -94,6 +98,7 @@ def get_email():
 
     return f"{local_part}@{domain}"
 
+
 def get_random_yaroslavl_address():
     """
     Возвращает случайный адрес в г. Ярославль, Россия.
@@ -113,7 +118,7 @@ def get_random_yaroslavl_address():
     districts = ["Кировский район", "Ленинский район", "Фрунзенский район", "Заволжский район", "Дзержинский район",
                  "Красноперекопский район"]
 
-    #prefixes = ["ул.", "пр-кт", "пер.", "пл.", "б-р"]
+    # prefixes = ["ул.", "пр-кт", "пер.", "пл.", "б-р"]
     prefixes = ["ул."]
 
     # Генерация 200 уникальных адресов (один раз при первом вызове)
@@ -153,6 +158,7 @@ def get_random_yaroslavl_address():
     # Возврат случайного адреса из списка
     return random.choice(get_random_yaroslavl_address.addresses)
 
+
 def make_menu():
     menu = {}
 
@@ -181,6 +187,7 @@ def make_menu():
                 menu[data_id].append(data_price)
     return menu
 
+
 def random_lang():
     langs = [
         ("en-US,en;q=0.9", 30),
@@ -196,6 +203,7 @@ def random_lang():
 
     choices, weights = zip(*langs)
     return random.choices(choices, weights=weights, k=1)[0]
+
 
 def random_timezone():
     return random.choice([

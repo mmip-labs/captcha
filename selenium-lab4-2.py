@@ -94,6 +94,8 @@ def run_task(proxy, language, timezone):
     time.sleep(random.choice([3,8]))
 
     # Phone number
+    driver.find_element(By.ID, "tel").click()
+    time.sleep(2)
     for digit in get_phone_number():
         driver.find_element(By.ID, "tel").send_keys(f'{digit}')
         timeout = random.choice(timers)
@@ -102,6 +104,8 @@ def run_task(proxy, language, timezone):
     time.sleep(random.choice([2,3,4,5]))
 
     # Name
+    driver.find_element(By.ID, "name").click()
+    time.sleep(1.5)
     for char in get_name():
         driver.find_element(By.ID, "name").send_keys(f'{char}')
         timeout = random.choice(timers)
@@ -110,6 +114,8 @@ def run_task(proxy, language, timezone):
     time.sleep(random.choice([2,3,4,5]))
 
     # Email
+    driver.find_element(By.ID, "mail").click()
+    time.sleep(1.5)
     for email in get_email():
         driver.find_element(By.ID, "mail").send_keys(f'{email}')
         timeout = random.choice(timers)
@@ -118,6 +124,8 @@ def run_task(proxy, language, timezone):
     time.sleep(random.choice([2,3,4,5]))
 
     # Address
+    driver.find_element(By.ID, "adress").click()
+    time.sleep(2)
     for address in get_random_yaroslavl_address():
         driver.find_element(By.ID, "adress").send_keys(f'{address}')
         time.sleep(0.5)

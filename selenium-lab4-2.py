@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 import time
 from selenium.webdriver.common.by import By
 import random
-from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu
+from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu, random_lang
 from fake_useragent import UserAgent
 
 
@@ -15,21 +15,33 @@ print(user_agent)
 
 chrome_options = webdriver.ChromeOptions()
 
-# Set random user_agent
-chrome_options.add_argument(f'--user-agent={user_agent}')
+# Set language
+language = random_lang()
+chrome_options.add_argument(f'--lang={language}')
+chrome_options.add_argument(f'--accept-lang={language}')
+
+# Disable Features That Might Expose Automation
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--disable-gpu')
+
+chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+chrome_options.add_experimental_option('useAutomationExtension', False)
+
+chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+
 
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Set random screen size
-widths = [1366, 1440, 1536, 1920]
-heights = [768, 900, 960, 1080]
+widths = [1366, 1440, 1536]
+heights = [768, 900, 960]
 driver.set_window_size(random.choice(widths), random.choice(heights))
 
 
 driver.get('https://ylilit.ru/cart')
 
-timers = [0.3, 0.4, 0.5]
+timers = [0.2, 0.3]
 
 dishes = make_menu()
 
@@ -57,7 +69,7 @@ driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{d
 updated_value = driver.execute_script("return window.cart;")
 print(f"The updated variable value is: {updated_value}")
 
-time.sleep(5)
+time.sleep(random.choice([3,10]))
 
 for digit in get_phone_number():
     driver.find_element(By.ID, "tel").send_keys(f'{digit}')

@@ -23,6 +23,7 @@ chrome_options = webdriver.ChromeOptions()
 # chrome_options.add_argument(f'--lang={language}')
 # chrome_options.add_argument(f'--accept-lang={language}')
 
+# Set window size
 widths = [1366, 1440, 1536]
 heights = [768, 900, 960]
 
@@ -36,6 +37,7 @@ chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 
+# Headless mode
 #chrome_options.add_argument("--headless=new")
 
 
@@ -77,20 +79,10 @@ driver.execute_script("window.cart['1112'] = '[]';")
 
 driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{dish_name}","{dish_price}"];')
 
-
-#driver.execute_script('window.cart["1112"] = [1,"https://ylilit.ru/wp-content/uploads/2020/12/DSC_6561-scaled.jpg","2050","Шашлык из свиной шеи","1000"];')
-
-# driver.execute_script(f"window.cart['1112'][0] = 1;")
-# driver.execute_script(f"window.cart['1112'][1] = 'https://ylilit.ru/wp-content/uploads/2020/12/DSC_6561-scaled.jpg';")
-# driver.execute_script(f"window.cart['1112'][2] = '2050';")
-# driver.execute_script(f"window.cart['1112'][3] = 'Шашлык из свиной шеи';")
-# driver.execute_script(f"window.cart['1112'][4] = '100';")
-
-#updated_value = driver.execute_script("return window.cart;")
-#print(f"The updated variable value is: {updated_value}")
-
+# Sleep before filling fields
 time.sleep(random.choice([3,8]))
 
+# Phone number
 for digit in get_phone_number():
     driver.find_element(By.ID, "tel").send_keys(f'{digit}')
     timeout = random.choice(timers)
@@ -98,6 +90,7 @@ for digit in get_phone_number():
 
 time.sleep(random.choice([2,3,4,5]))
 
+# Name
 for char in get_name():
     driver.find_element(By.ID, "name").send_keys(f'{char}')
     timeout = random.choice(timers)
@@ -105,6 +98,7 @@ for char in get_name():
 
 time.sleep(random.choice([2,3,4,5]))
 
+# Email
 for email in get_email():
     driver.find_element(By.ID, "mail").send_keys(f'{email}')
     timeout = random.choice(timers)
@@ -112,15 +106,15 @@ for email in get_email():
 
 time.sleep(random.choice([2,3,4,5]))
 
+# Address
 for address in get_random_yaroslavl_address():
     driver.find_element(By.ID, "adress").send_keys(f'{address}')
     time.sleep(0.5)
 
 time.sleep(random.choice([2,3,4,5]))
 
+# Form submit
 driver.find_element(By.CLASS_NAME, "sendCart").click()
 
-#driver.find_element("id", "rcmloginsubmit").click()
-
-time.sleep(40)
+time.sleep(20)
 

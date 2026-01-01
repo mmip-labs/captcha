@@ -8,113 +8,144 @@ from func import get_phone_number, get_name, get_email, get_random_yaroslavl_add
 from func import random_timezone
 from fake_useragent import UserAgent
 
+proxies = {
+    '1': '72.56.79.240:8888',
+    '2': '178.208.91.155:8888'
+}
 
-ua = UserAgent()
-user_agent = ua.random
+def run_task(proxy, language, timezone):
 
-timezone = random_timezone()
+    ua = UserAgent()
+    user_agent = ua.random
 
-print(user_agent)
+    #timezone = random_timezone()
 
-chrome_options = webdriver.ChromeOptions()
+    chrome_options = webdriver.ChromeOptions()
 
-# Set language
-# language = random_lang()
-# chrome_options.add_argument(f'--lang={language}')
-# chrome_options.add_argument(f'--accept-lang={language}')
+    # Set language
+    chrome_options.add_argument(f'--lang={language}')
+    chrome_options.add_argument(f'--accept-lang={language}')
 
-# Set window size
-widths = [1366, 1440, 1536]
-heights = [768, 900, 960]
+    # Set window size
+    widths = [1366, 1440, 1536]
+    heights = [768, 900, 960]
 
-chrome_options.add_argument(f"--window-size={random.choice(widths)},{random.choice(heights)}")
+    chrome_options.add_argument(f"--window-size={random.choice(widths)},{random.choice(heights)}")
 
-# Disable Features That Might Expose Automation
-chrome_options.add_argument('--disable-dev-shm-usage')
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    # Disable Features That Might Expose Automation
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
-chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-chrome_options.add_experimental_option('useAutomationExtension', False)
-
-# Headless mode
-#chrome_options.add_argument("--headless=new")
-
-
-service = Service(executable_path=ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
+    # Proxy
+    chrome_options.add_argument(f"--proxy-server=http://{proxy}")
 
 
-# Set time zone
-# driver.execute_cdp_cmd(
-#     "Emulation.setTimezoneOverride",
-#     {"timezoneId": timezone}
-# )
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
 
-# Unset webdriver=true
-driver.execute_script("""
-Object.defineProperty(navigator, 'webdriver', {
-    get: () => undefined
-});
-""")
-
-# Maximize windows
-driver.maximize_window()
-
-# Get page
-driver.get('https://ylilit.ru/cart')
-
-timers = [0.2, 0.3]
-
-dishes = make_menu()
-
-dish_id = random.choice(list(dishes.keys()))
-dish_name = dishes[dish_id][0]
-dish_value = dishes[dish_id][1]
-dish_img = dishes[dish_id][2]
-dish_price = dishes[dish_id][3]
+    # Headless mode
+    #chrome_options.add_argument("--headless=new")
 
 
-driver.execute_script("window.cart['1112'] = '[]';")
+    service = Service(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
-driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{dish_name}","{dish_price}"];')
 
-# Sleep before filling fields
-time.sleep(random.choice([3,8]))
+    # Set time zone
+    driver.execute_cdp_cmd(
+        "Emulation.setTimezoneOverride",
+        {"timezoneId": timezone}
+    )
 
-# Phone number
-for digit in get_phone_number():
-    driver.find_element(By.ID, "tel").send_keys(f'{digit}')
-    timeout = random.choice(timers)
-    time.sleep(timeout)
+    # Unset webdriver=true
+    driver.execute_script("""
+    Object.defineProperty(navigator, 'webdriver', {
+        get: () => undefined
+    });
+    """)
 
-time.sleep(random.choice([2,3,4,5]))
+    # Maximize windows
+    driver.maximize_window()
 
-# Name
-for char in get_name():
-    driver.find_element(By.ID, "name").send_keys(f'{char}')
-    timeout = random.choice(timers)
-    time.sleep(timeout)
+    # Get page
+    driver.get('https://ylilit.ru/cart')
 
-time.sleep(random.choice([2,3,4,5]))
+    timers = [0.2, 0.3]
 
-# Email
-for email in get_email():
-    driver.find_element(By.ID, "mail").send_keys(f'{email}')
-    timeout = random.choice(timers)
-    time.sleep(timeout)
+    dishes = make_menu()
 
-time.sleep(random.choice([2,3,4,5]))
+    dish_id = random.choice(list(dishes.keys()))
+    dish_name = dishes[dish_id][0]
+    dish_value = dishes[dish_id][1]
+    dish_img = dishes[dish_id][2]
+    dish_price = dishes[dish_id][3]
 
-# Address
-for address in get_random_yaroslavl_address():
-    driver.find_element(By.ID, "adress").send_keys(f'{address}')
-    time.sleep(0.5)
 
-time.sleep(random.choice([2,3,4,5]))
+    driver.execute_script("window.cart['1112'] = '[]';")
 
-# Form submit
-driver.find_element(By.CLASS_NAME, "sendCart").click()
+    driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{dish_name}","{dish_price}"];')
 
-time.sleep(20)
+    # Sleep before filling fields
+    time.sleep(random.choice([3,8]))
+
+    # Phone number
+    for digit in get_phone_number():
+        driver.find_element(By.ID, "tel").send_keys(f'{digit}')
+        timeout = random.choice(timers)
+        time.sleep(timeout)
+
+    time.sleep(random.choice([2,3,4,5]))
+
+    # Name
+    for char in get_name():
+        driver.find_element(By.ID, "name").send_keys(f'{char}')
+        timeout = random.choice(timers)
+        time.sleep(timeout)
+
+    time.sleep(random.choice([2,3,4,5]))
+
+    # Email
+    for email in get_email():
+        driver.find_element(By.ID, "mail").send_keys(f'{email}')
+        timeout = random.choice(timers)
+        time.sleep(timeout)
+
+    time.sleep(random.choice([2,3,4,5]))
+
+    # Address
+    for address in get_random_yaroslavl_address():
+        driver.find_element(By.ID, "adress").send_keys(f'{address}')
+        time.sleep(0.5)
+
+    time.sleep(random.choice([2,3,4,5]))
+
+    # Form submit
+    driver.find_element(By.CLASS_NAME, "sendCart").click()
+
+    time.sleep(random.choice([10, 20]))
+    driver.close()
+
+last_proxy = 1
+
+
+while True:
+
+    proxy = proxies[str(last_proxy)]
+
+    last_proxy += 1
+
+    if last_proxy > 2:
+        last_proxy = 1
+
+    if last_proxy == 1 or last_proxy == 2:
+        lang = 'nl-NL,nl;q=0.9,en-US;q=0.8'
+        tz = 'Europe/Amsterdam'
+    else:
+        lang = 'ru-RU,ru;q=0.9,en-US;q=0.8'
+        tz = 'Europe/Moscow'
+
+    print(f'Proxy: {proxy}', lang, tz)
+    run_task(proxy=proxy, language=lang, timezone=tz)
+    time.sleep(300)
 

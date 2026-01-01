@@ -64,9 +64,11 @@ def run_task(proxy, language, timezone):
 
     driver.maximize_window()
     driver.get('https://www.mobzystems.com/online/browser-information/')
+
     #driver.get('https://2ip.ru')
 
-    time.sleep(10)
+    time.sleep(14)
+    driver.close()
 
 last_proxy = 1
 

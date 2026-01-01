@@ -52,17 +52,17 @@ def run_task(proxy, language, timezone):
     heights = [768, 900, 960]
     driver.set_window_size(random.choice(widths), random.choice(heights))
 
-    # --- Timezone ---
+    # Set time zone
     driver.execute_cdp_cmd(
         "Emulation.setTimezoneOverride",
         {"timezoneId": timezone}
     )
 
-    });
-    # --- Убираем webdriver=true ---
+    # Unset webdriver=true
     driver.execute_script("""
     Object.defineProperty(navigator, 'webdriver', {
         get: () => undefined
+    });
     """)
 
     driver.maximize_window()
@@ -96,5 +96,4 @@ while True:
     last_proxy += 1
 
     time.sleep(30)
-
 

@@ -56,7 +56,10 @@ Object.defineProperty(navigator, 'webdriver', {
 });
 """)
 
+# Maximize windows
+driver.maximize_window()
 
+# Get page
 driver.get('https://ylilit.ru/cart')
 
 timers = [0.2, 0.3]
@@ -68,7 +71,6 @@ dish_name = dishes[dish_id][0]
 dish_value = dishes[dish_id][1]
 dish_img = dishes[dish_id][2]
 dish_price = dishes[dish_id][3]
-
 
 
 driver.execute_script("window.cart['1112'] = '[]';")
@@ -84,8 +86,8 @@ driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{d
 # driver.execute_script(f"window.cart['1112'][3] = 'Шашлык из свиной шеи';")
 # driver.execute_script(f"window.cart['1112'][4] = '100';")
 
-updated_value = driver.execute_script("return window.cart;")
-print(f"The updated variable value is: {updated_value}")
+#updated_value = driver.execute_script("return window.cart;")
+#print(f"The updated variable value is: {updated_value}")
 
 time.sleep(random.choice([3,8]))
 

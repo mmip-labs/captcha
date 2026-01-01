@@ -58,19 +58,14 @@ Object.defineProperty(navigator, 'webdriver', {
 });
 """)
 
-
+driver.maximize_window()
 driver.get('https://www.mobzystems.com/online/browser-information/')
 
+driver.maximize_window()
 #driver.get('https://webbrowsertools.com/timezone/')
 
 
 #driver.get('https://httpbin.org/user-agent')
-
-print(driver.execute_script("return navigator.userAgent"))
-print(driver.execute_script("return navigator.language"))
-print(driver.execute_script("return Intl.DateTimeFormat().resolvedOptions().timeZone"))
-print(driver.execute_script("return window.innerWidth + 'x' + window.innerHeight"))
-
 
 #driver.find_element("id", "rcmloginsubmit").click()
 

@@ -91,7 +91,7 @@ def run_task(proxy, language, timezone):
     driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_value}","{dish_name}","{dish_price}"];')
 
     # Sleep before filling fields
-    time.sleep(random.choice([3,8]))
+    time.sleep(random.choice([3, 8]))
 
     # Phone number
     driver.find_element(By.ID, "tel").click()
@@ -101,8 +101,7 @@ def run_task(proxy, language, timezone):
         timeout = random.choice(timers)
         time.sleep(timeout)
 
-    time.sleep(random.choice([2,3,4,5]))
-
+    time.sleep(random.choice([2, 3, 4, 5]))
     # Name
     driver.find_element(By.ID, "name").click()
     time.sleep(1.5)
@@ -111,7 +110,7 @@ def run_task(proxy, language, timezone):
         timeout = random.choice(timers)
         time.sleep(timeout)
 
-    time.sleep(random.choice([2,3,4,5]))
+    time.sleep(random.choice([2, 3, 4, 5]))
 
     # Email
     driver.find_element(By.ID, "mail").click()
@@ -121,7 +120,7 @@ def run_task(proxy, language, timezone):
         timeout = random.choice(timers)
         time.sleep(timeout)
 
-    time.sleep(random.choice([2,3,4,5]))
+    time.sleep(random.choice([2, 3, 4, 5]))
 
     # Address
     driver.find_element(By.ID, "adress").click()
@@ -130,7 +129,7 @@ def run_task(proxy, language, timezone):
         driver.find_element(By.ID, "adress").send_keys(f'{address}')
         time.sleep(0.5)
 
-    time.sleep(random.choice([2,3,4,5]))
+    time.sleep(random.choice([2, 3, 4, 5]))
 
     # Form submit
     driver.find_element(By.CLASS_NAME, "sendCart").click()

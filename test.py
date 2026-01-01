@@ -9,7 +9,8 @@ from func import random_lang, random_timezone
 
 proxies = {
     '1': '72.56.79.240:8888',
-    '2': '178.208.91.155:8888'
+    '2': '178.208.91.155:8888',
+    '3': '193.33.184.68:8000'
 }
 def run_task(proxy, language, timezone):
     ua = UserAgent()
@@ -75,12 +76,10 @@ last_proxy = 1
 
 while True:
 
-    proxy = proxies[str(last_proxy)]
-
-    last_proxy += 1
-
-    if last_proxy > 2:
+    if last_proxy > 3:
         last_proxy = 1
+
+    proxy = proxies[str(last_proxy)]
 
     if last_proxy == 1 or last_proxy == 2:
         lang = 'nl-NL,nl;q=0.9,en-US;q=0.8'
@@ -89,8 +88,11 @@ while True:
         lang = 'ru-RU,ru;q=0.9,en-US;q=0.8'
         tz = 'Europe/Moscow'
 
-    print(f'Proxy: {proxy}', lang, tz)
+    print(f'Proxy: {proxy}, ID: {last_proxy}, Lang: {lang}, TZ: {tz}')
     run_task(proxy=proxy, language=lang, timezone=tz)
+
+    last_proxy += 1
+
     time.sleep(30)
 
 

@@ -123,7 +123,7 @@ def run_task(proxy, language, timezone):
     # Form submit
     driver.find_element(By.CLASS_NAME, "sendCart").click()
 
-    time.sleep(random.choice([10, 20]))
+    time.sleep(random.choice([15, 20]))
     driver.close()
 
 last_proxy = 1

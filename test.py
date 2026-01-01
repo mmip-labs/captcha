@@ -5,6 +5,8 @@ import time
 import random
 from fake_useragent import UserAgent
 from func import random_lang, random_timezone
+from datetime import datetime
+
 
 
 proxies = {
@@ -88,7 +90,7 @@ while True:
         lang = 'ru-RU,ru;q=0.9,en-US;q=0.8'
         tz = 'Europe/Moscow'
 
-    print(f'Proxy: {proxy}, ID: {last_proxy}, Lang: {lang}, TZ: {tz}')
+    print(f'{datetime.now()}, Proxy: {proxy}, ID: {last_proxy}, Lang: {lang}, TZ: {tz}')
     run_task(proxy=proxy, language=lang, timezone=tz)
 
     last_proxy += 1

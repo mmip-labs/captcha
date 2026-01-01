@@ -7,10 +7,12 @@ import random
 from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu, random_lang
 from func import random_timezone
 from fake_useragent import UserAgent
+from datetime import datetime
 
 proxies = {
     '1': '72.56.79.240:8888',
-    '2': '178.208.91.155:8888'
+    '2': '178.208.91.155:8888',
+    '3': '193.33.184.68:8000'
 }
 
 def run_task(proxy, language, timezone):
@@ -81,10 +83,12 @@ def run_task(proxy, language, timezone):
     dish_img = dishes[dish_id][2]
     dish_price = dishes[dish_id][3]
 
+    print(dish_id, dish_name, dish_value, dish_price)
+    print()
 
     driver.execute_script("window.cart['1112'] = '[]';")
 
-    driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{dish_name}","{dish_price}"];')
+    driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_value}","{dish_name}","{dish_price}"];')
 
     # Sleep before filling fields
     time.sleep(random.choice([3,8]))
@@ -128,15 +132,14 @@ def run_task(proxy, language, timezone):
 
 last_proxy = 1
 
+task_number = 1
 
 while True:
 
-    proxy = proxies[str(last_proxy)]
-
-    last_proxy += 1
-
-    if last_proxy > 2:
+    if last_proxy > 3:
         last_proxy = 1
+
+    proxy = proxies[str(last_proxy)]
 
     if last_proxy == 1 or last_proxy == 2:
         lang = 'nl-NL,nl;q=0.9,en-US;q=0.8'
@@ -145,7 +148,11 @@ while True:
         lang = 'ru-RU,ru;q=0.9,en-US;q=0.8'
         tz = 'Europe/Moscow'
 
-    print(f'Proxy: {proxy}', lang, tz)
+    print(f'{datetime.now()}, Task: {task_number}, Proxy: {proxy}, ID: {last_proxy}, Lang: {lang}, TZ: {tz}')
     run_task(proxy=proxy, language=lang, timezone=tz)
+
+    last_proxy += 1
+    task_number += 1
+
     time.sleep(300)
 

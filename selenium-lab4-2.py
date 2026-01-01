@@ -6,12 +6,34 @@ from selenium.webdriver.common.by import By
 import random
 from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu
 
+custom_user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+chrome_options = webdriver.ChromeOptions()
+#chrome_options.add_argument(f'--user-agent={custom_user_agent}')
+
+widths = [1366, 1440, 1536, 1920]
+heights = [768, 900, 960, 1080]
+chrome_options.add_argument(f"--window-size={random.choice(widths)},{random.choice(heights)}")
+
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
 
+driver.execute_cdp_cmd(
+    'Emulation.setTimezoneOverride',
+    {'timezoneId': 'America/New_York'}
+)
+
+driver.execute_cdp_cmd(
+    "Emulation.setGeolocationOverride",
+    {
+        "latitude": 40.7128,
+        "longitude": -74.0060,
+        "accuracy": 100
+    }
+)
+
 driver.get('https://ylilit.ru/cart')
 
-timers = [0.4, 0.5, 0.6, 0.7]
+timers = [0.3, 0.4, 0.5]
 
 dishes = make_menu()
 
@@ -39,7 +61,7 @@ driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{d
 updated_value = driver.execute_script("return window.cart;")
 print(f"The updated variable value is: {updated_value}")
 
-
+time.sleep(5)
 
 for digit in get_phone_number():
     driver.find_element(By.ID, "tel").send_keys(f'{digit}')

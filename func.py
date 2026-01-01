@@ -183,19 +183,24 @@ def make_menu():
 
 def random_lang():
     langs = [
-        "en-US,en;q=0.9",
-        "en-GB,en;q=0.9",
-        "ru-RU,ru;q=0.9,en-US;q=0.8",
-        "de-DE,de;q=0.9,en-US;q=0.8",
-        "fr-FR,fr;q=0.9,en-US;q=0.8",
-        "es-ES,es;q=0.9,en-US;q=0.8",
-        "it-IT,it;q=0.9,en-US;q=0.8",
-        "pt-BR,pt;q=0.9,en-US;q=0.8",
-        "pl-PL,pl;q=0.9,en-US;q=0.8",
-        "tr-TR,tr;q=0.9,en-US;q=0.8",
-        "zh-CN,zh;q=0.9,en-US;q=0.8",
-        "ja-JP,ja;q=0.9,en-US;q=0.8",
-        "ko-KR,ko;q=0.9,en-US;q=0.8",
+        ("en-US,en;q=0.9", 30),
+        ("ru-RU,ru;q=0.9,en-US;q=0.8", 15),
+        ("de-DE,de;q=0.9,en-US;q=0.8", 10),
+        ("fr-FR,fr;q=0.9,en-US;q=0.8", 10),
+        ("es-ES,es;q=0.9,en-US;q=0.8", 10),
+        ("pt-BR,pt;q=0.9,en-US;q=0.8", 10),
+        ("tr-TR,tr;q=0.9,en-US;q=0.8", 5),
+        ("pl-PL,pl;q=0.9,en-US;q=0.8", 5),
+        ("ja-JP,ja;q=0.9,en-US;q=0.8", 5),
     ]
-    return random.choice(langs)
 
+    choices, weights = zip(*langs)
+    return random.choices(choices, weights=weights, k=1)[0]
+
+def random_timezone():
+    return random.choice([
+        "Europe/Berlin",
+        "Europe/Paris",
+        "America/New_York",
+        "America/Los_Angeles",
+    ])

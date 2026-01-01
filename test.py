@@ -7,10 +7,12 @@ import random
 from selenium.webdriver.chrome.options import Options
 
 from fake_useragent import UserAgent
-from func import random_lang
+from func import random_lang, random_timezone
 
 ua = UserAgent()
 user_agent = ua.random
+
+timezone = random_timezone()
 
 print(user_agent)
 
@@ -42,12 +44,25 @@ widths = [1366, 1440, 1536]
 heights = [768, 900, 960]
 driver.set_window_size(random.choice(widths), random.choice(heights))
 
-# driver.execute_cdp_cmd(
-#     "Emulation.setTimezoneOverride",
-#     {"timezoneId": "America/New_York"}
-# )
+# --- Timezone ---
+driver.execute_cdp_cmd(
+    "Emulation.setTimezoneOverride",
+    {"timezoneId": timezone}
+)
 
-driver.get('https://www.mobzystems.com/online/browser-information/')
+# --- Убираем webdriver=true ---
+driver.execute_script("""
+Object.defineProperty(navigator, 'webdriver', {
+    get: () => undefined
+});
+""")
+
+
+#driver.get('https://www.mobzystems.com/online/browser-information/')
+
+driver.get('https://webbrowsertools.com/timezone/')
+
+
 #driver.get('https://httpbin.org/user-agent')
 
 

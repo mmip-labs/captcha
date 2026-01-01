@@ -5,11 +5,14 @@ import time
 from selenium.webdriver.common.by import By
 import random
 from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu, random_lang
+from func import random_timezone
 from fake_useragent import UserAgent
 
 
 ua = UserAgent()
 user_agent = ua.random
+
+timezone = random_timezone()
 
 print(user_agent)
 
@@ -37,6 +40,19 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 widths = [1366, 1440, 1536]
 heights = [768, 900, 960]
 driver.set_window_size(random.choice(widths), random.choice(heights))
+
+# Set time zone
+driver.execute_cdp_cmd(
+    "Emulation.setTimezoneOverride",
+    {"timezoneId": timezone}
+)
+
+# Unset webdriver=true
+driver.execute_script("""
+Object.defineProperty(navigator, 'webdriver', {
+    get: () => undefined
+});
+""")
 
 
 driver.get('https://ylilit.ru/cart')
@@ -69,7 +85,7 @@ driver.execute_script(f'window.cart["1112"] = [1,"{dish_img}","{dish_price}","{d
 updated_value = driver.execute_script("return window.cart;")
 print(f"The updated variable value is: {updated_value}")
 
-time.sleep(random.choice([3,10]))
+time.sleep(random.choice([3,8]))
 
 for digit in get_phone_number():
     driver.find_element(By.ID, "tel").send_keys(f'{digit}')

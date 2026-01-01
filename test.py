@@ -35,6 +35,7 @@ chrome_options.add_experimental_option('useAutomationExtension', False)
 
 chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
+chrome_options.add_argument("--headless=new")
 
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -58,13 +59,17 @@ Object.defineProperty(navigator, 'webdriver', {
 """)
 
 
-#driver.get('https://www.mobzystems.com/online/browser-information/')
+driver.get('https://www.mobzystems.com/online/browser-information/')
 
-driver.get('https://webbrowsertools.com/timezone/')
+#driver.get('https://webbrowsertools.com/timezone/')
 
 
 #driver.get('https://httpbin.org/user-agent')
 
+print(driver.execute_script("return navigator.userAgent"))
+print(driver.execute_script("return navigator.language"))
+print(driver.execute_script("return Intl.DateTimeFormat().resolvedOptions().timeZone"))
+print(driver.execute_script("return window.innerWidth + 'x' + window.innerHeight"))
 
 
 #driver.find_element("id", "rcmloginsubmit").click()

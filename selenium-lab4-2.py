@@ -19,9 +19,9 @@ print(user_agent)
 chrome_options = webdriver.ChromeOptions()
 
 # Set language
-language = random_lang()
-chrome_options.add_argument(f'--lang={language}')
-chrome_options.add_argument(f'--accept-lang={language}')
+# language = random_lang()
+# chrome_options.add_argument(f'--lang={language}')
+# chrome_options.add_argument(f'--accept-lang={language}')
 
 # Disable Features That Might Expose Automation
 chrome_options.add_argument('--disable-dev-shm-usage')
@@ -31,6 +31,8 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 
 chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+
+chrome_options.add_argument("--headless=new")
 
 
 service = Service(executable_path=ChromeDriverManager().install())
@@ -42,10 +44,10 @@ heights = [768, 900, 960]
 driver.set_window_size(random.choice(widths), random.choice(heights))
 
 # Set time zone
-driver.execute_cdp_cmd(
-    "Emulation.setTimezoneOverride",
-    {"timezoneId": timezone}
-)
+# driver.execute_cdp_cmd(
+#     "Emulation.setTimezoneOverride",
+#     {"timezoneId": timezone}
+# )
 
 # Unset webdriver=true
 driver.execute_script("""

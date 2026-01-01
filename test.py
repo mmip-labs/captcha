@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 import time
 import random
 from fake_useragent import UserAgent
-from func import random_lang, random_timezone
+#from func import random_lang, random_timezone
 from datetime import datetime
 
 

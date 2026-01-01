@@ -4,8 +4,8 @@ from selenium.webdriver.chrome.service import Service
 import time
 from selenium.webdriver.common.by import By
 import random
-from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu, random_lang
-from func import random_timezone
+from func import get_phone_number, get_name, get_email, get_random_yaroslavl_address, make_menu
+#from func import random_timezone
 from fake_useragent import UserAgent
 from datetime import datetime
 

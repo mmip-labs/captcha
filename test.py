@@ -58,11 +58,11 @@ def run_task(proxy, language, timezone):
         {"timezoneId": timezone}
     )
 
+    });
     # --- Убираем webdriver=true ---
     driver.execute_script("""
     Object.defineProperty(navigator, 'webdriver', {
         get: () => undefined
-    });
     """)
 
     driver.maximize_window()

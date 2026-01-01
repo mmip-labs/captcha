@@ -1,21 +1,23 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from emunium import EmuniumSelenium
+import pyautogui
 
-driver = webdriver.Chrome()
-wait = WebDriverWait(driver, 10)
-emunium = EmuniumSelenium(driver)
+import pyautogui
+import random
+import time
 
-driver.get('https://duckduckgo.com/')
+# Включаем защиту: если увести мышь в левый верхний угол — программа остановится
+pyautogui.FAILSAFE = True
 
-# Wait for the search field to be clickable and type your query
-element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-state="suggesting"]')))
-emunium.type_at(element, 'Automating searches')
+# Получаем размер экрана
+screen_width, screen_height = pyautogui.size()
 
-# Find and click the search button
-submit = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[aria-label="Search"]')))
-emunium.click_at(submit)
+while True:
+    # Случайные координаты в пределах экрана
+    x = random.randint(0, screen_width)
+    y = random.randint(0, screen_height)
 
-driver.quit()
+    # Перемещаем курсор (0.5 секунды — плавность)
+    pyautogui.moveTo(x, y, duration=0.5)
+
+    # Пауза между движениями
+    time.sleep(8)
+

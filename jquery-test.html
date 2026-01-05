@@ -10,6 +10,9 @@
 <script>
 const resultDiv = document.getElementById('result');
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
     function makeRequest() {
     $.ajax({
@@ -28,7 +31,7 @@ const resultDiv = document.getElementById('result');
     }
 for (let i = 1; i <= 10; i++) {
     makeRequest();
-    delay(2000);
+    await delay(2000);
 }
 </script>
 </body>

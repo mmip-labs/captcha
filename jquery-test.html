@@ -19,13 +19,13 @@ $.ajax({
         resultDiv.innerHTML += `
                 <p><strong>Запрос ${i}:</strong> ${response}</p>
             `;
-        await sleep(3000);
         //alert(response);
     },
     error: function(error) {
         console.log('Ошибка:', error);
     }
 });
+sleep(1000);
 }
 </script>
 </body>

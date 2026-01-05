@@ -8,18 +8,19 @@
 <body>
 
 <script>
-
+for (let i = 1; i <= 10; i++) {
 $.ajax({
     url: 'https://t.mmip.ru/captcha/api.php',
     type: 'GET',
     success: function(response) {
         console.log('Ответ:', response);
-        alert(response);
+        //alert(response);
     },
     error: function(error) {
         console.log('Ошибка:', error);
     }
 });
+}
 </script>
 </body>
 </html>

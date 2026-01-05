@@ -19,6 +19,7 @@ $.ajax({
         resultDiv.innerHTML += `
                 <p><strong>Запрос ${i}:</strong> ${response}</p>
             `;
+        sleep(1000);
         //alert(response);
     },
     error: function(error) {

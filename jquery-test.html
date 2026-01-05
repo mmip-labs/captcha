@@ -25,7 +25,9 @@ $.ajax({
         console.log('Ошибка:', error);
     }
 });
-await sleep(1000);
+setTimeout(() => {
+  console.log("This runs after 1 second.");
+}, 1000);
 }
 </script>
 </body>

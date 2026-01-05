@@ -17,7 +17,7 @@ const resultDiv = document.getElementById('result');
         type: 'GET',
         success: function(response) {
             console.log('Ответ:', response);
-            resultDiv.innerHTML += <p><strong>Запрос ${i}:</strong> ${response}</p>;
+            resultDiv.innerHTML += `<p><strong>Запрос ${i}:</strong> ${response}</p>`;
         },
         error: function(error) {
             console.log('Ошибка:', error);

@@ -10,11 +10,8 @@
 <script>
 const resultDiv = document.getElementById('result');
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
-    function makeRequest() {
+function makeRequest(num) {
     $.ajax({
         url: 'https://t.mmip.ru/captcha/api.php',
         type: 'GET',
@@ -23,16 +20,18 @@ function delay(ms) {
             resultDiv.innerHTML += `
                 <p><strong>Запрос </strong> ${response}</p>
             `;
+            if (num < total) {
+                    console.log('Wait 3 sec');
+                    setTimeout(() => makeRequest(num + 1), 3000);
+            }
         },
         error: function(error) {
             console.log('Ошибка:', error);
         }
     });
-    }
-for (let i = 1; i <= 10; i++) {
-    makeRequest();
-    delay(5000);
 }
+
+
 </script>
 </body>
 </html>

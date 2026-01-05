@@ -14,6 +14,9 @@ $.ajax({
     type: 'GET',
     success: function(response) {
         console.log('Ответ:', response);
+        resultDiv.innerHTML += `
+                <p><strong>Запрос ${i}:</strong> ${response}</p>
+            `;
         //alert(response);
     },
     error: function(error) {

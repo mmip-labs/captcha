@@ -20,7 +20,7 @@ function makeRequest(num) {
             resultDiv.innerHTML += `
                 <p><strong>Запрос </strong> ${response}</p>
             `;
-            if (num < total) {
+            if (num < 10) {
                     console.log('Wait 3 sec');
                     setTimeout(() => makeRequest(num + 1), 3000);
             }

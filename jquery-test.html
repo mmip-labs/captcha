@@ -22,7 +22,7 @@ function makeRequest(num) {
             `;
             if (num < 10) {
                     console.log('Wait 3 sec');
-                    setTimeout(() => makeRequest(num + 1), 3000);
+                    setTimeout(() => makeRequest(num + 1), 1000);
             }
         },
         error: function(error) {

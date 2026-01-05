@@ -20,14 +20,15 @@ $.ajax({
                 <p><strong>Запрос ${i}:</strong> ${response}</p>
             `;
         //alert(response);
+    setTimeout(() => {
+  console.log("This runs after 1 second.");
+}, 3000);
+
     },
     error: function(error) {
         console.log('Ошибка:', error);
     }
 });
-setTimeout(() => {
-  console.log("This runs after 1 second.");
-}, 3000);
 }
 </script>
 </body>

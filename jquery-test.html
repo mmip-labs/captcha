@@ -18,7 +18,7 @@ function makeRequest(num) {
         success: function(response) {
             console.log('Ответ:', response);
             resultDiv.innerHTML += `
-                <p><strong>Запрос </strong> ${response}</p>
+                <p>Запрос ${num}, Ответ: ${response}</p>
             `;
             if (num < 10) {
                     console.log('Wait 3 sec');

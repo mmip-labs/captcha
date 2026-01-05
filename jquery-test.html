@@ -18,7 +18,7 @@ const resultDiv = document.getElementById('result');
         success: function(response) {
             console.log('Ответ:', response);
             resultDiv.innerHTML += `
-                <p><strong>Запрос </strong> ${data.title}</p>
+                <p><strong>Запрос </strong> ${response}</p>
             `;
         },
         error: function(error) {

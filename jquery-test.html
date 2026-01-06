@@ -31,7 +31,7 @@ function makeRequest(num) {
     });
 }
 
-const funcs = [makeRequest(1);,makeRequest(1);,makeRequest(1);];
+const funcs = [makeRequest(1),makeRequest(1),makeRequest(1)];
 const promises = funcs.map(f => f());
 
 $.when.apply($, promises)

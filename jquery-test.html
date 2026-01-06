@@ -31,14 +31,17 @@ function makeRequest(num) {
     });
 }
 
-const funcs = [makeRequest(1),makeRequest(1),makeRequest(1)];
-const promises = funcs.map(f => f());
-
-$.when.apply($, promises)
-  .done(function () {
-    console.log('Все 5 функций завершились');
-  });
-
+$.when(
+  makeRequest(1),
+  makeRequest(1),
+  makeRequest(1),
+  makeRequest(1),
+  makeRequest(1)
+).done(function (r1, r2, r3, r4, r5) {
+  console.log('Все функции завершились');
+}).fail(function () {
+  console.error('Одна из функций упала');
+});
 
 
 </script>

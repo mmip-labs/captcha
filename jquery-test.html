@@ -20,16 +20,20 @@ function makeRequest(num) {
             resultDiv.innerHTML += `
                 <p>Запрос ${num}, Ответ: ${response}</p>
             `;
-            if (num < 10) {
-                    console.log('Wait 3 sec');
-                    setTimeout(() => makeRequest(num + 1), 1000);
-            }
+//            if (num < 10) {
+//                    console.log('Wait 3 sec');
+//                    setTimeout(() => makeRequest(num + 1), 1000);
+//            }
         },
         error: function(error) {
             console.log('Ошибка:', error);
         }
     });
 }
+makeRequest(1);
+makeRequest(1);
+makeRequest(1);
+makeRequest(1);
 makeRequest(1);
 
 </script>
